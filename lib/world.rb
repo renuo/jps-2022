@@ -17,8 +17,8 @@ Project = Struct.new(:name, :duration_days, :score, :skills, keyword_init: true)
     self.skills ||= []
   end
 end
-    
-ProjectAssignment = Struct.new(:name, :people, keyword_init: true) do
+
+ProjectAssignment = Struct.new(:name, :contributors, keyword_init: true) do
 end
 
 World = Struct.new(:contributors, :projects, keyword_init: true) do
