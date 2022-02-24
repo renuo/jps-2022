@@ -8,5 +8,5 @@ GoogleImporting::DATASET_NAMES.each do |name|
 
   result = SampleAlgorithm.call(world: world)
 
-  GoogleExporting.write_result(result, File.join(__dir__, "../data/out/josua/#{name}.txt"))
+  GoogleExporting.write_result(result, File.join(__dir__, "../data/out/pascal/#{name}.txt"))
 end
