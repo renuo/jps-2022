@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/jps'
-require_relative '../algo/easy_algorithm'
+require_relative '../algo/greedy_algorithm'
 
 GoogleImporting::DATASET_NAMES.each do |name|
   world = GoogleImporting.build_world(name)
 
-  result = EasyAlgorithm.call(world: world, project_assignments: [])
+  result = GreedyAlgorithm.call(world: world, project_assignments: [])
 
   GoogleExporting.write_result(result, File.join(__dir__, "../data/out/josua/#{name}.txt"))
 end

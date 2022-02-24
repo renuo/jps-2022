@@ -17,7 +17,14 @@ Project = Struct.new(:name, :duration_days, :score, :skills, :day_score, keyword
   def initialize(**args)
     super(**args)
     self.skills ||= []
-    self.day_score = self.score.to_f / self.duration_days.to_f
+  end
+
+  def day_score
+    score.to_f / duration_days.to_f
+  end
+
+  def cost_score
+    day_score / skills.length
   end
 end
 

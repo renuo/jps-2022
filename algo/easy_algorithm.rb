@@ -8,6 +8,7 @@ class EasyAlgorithm
     projects.each do |project|
       assignment = ProjectAssignment.new(project: project, contributors: [])
 
+      puts contributors.length
       project.skills.each do |ps|
         contributor = contributors.find { |c| c.skills.any? { |cs| cs.name == ps.name && cs.level >= ps.level } }
         if contributor

@@ -7,7 +7,7 @@ class GreedyAlgorithm
     projects = context.world&.projects
     contributors = context.world&.contributors
 
-    projects_sorted = projects.sort { |a, b| b[:day_score] <=> a[:day_score] }
+    projects_sorted = projects.sort { |a, b| b.cost_score <=> a.cost_score }
 
     manager = ProjectManager.new
     projects_sorted.each do |project|
