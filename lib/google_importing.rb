@@ -40,7 +40,7 @@ module GoogleImporting
     end
 
     world = World.new(contributors: contributors, projects: projects)
-    puts "read #{world.contributors.length} contributors and #{world.projects.length} projects"
+    puts "Read #{world.contributors.length} contributors and #{world.projects.length} projects"
 
     world
   end

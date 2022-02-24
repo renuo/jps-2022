@@ -6,7 +6,7 @@ require_relative '../algo/easy_algorithm'
 GoogleImporting::DATASET_NAMES.each do |name|
   world = GoogleImporting.build_world(name)
 
-  result = EasyAlgorithm.call(world: world)
+  result = EasyAlgorithm.call(world: world, project_assignments: [])
 
   GoogleExporting.write_result(result, File.join(__dir__, "../data/out/josua/#{name}.txt"))
 end
