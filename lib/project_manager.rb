@@ -16,15 +16,14 @@ ProjectManager = Struct.new(:project_assignments, :current_day, keyword_init: tr
 
     # level up if skills have been used at the edge
     assignment.project.skills.each do |ps|
-      # edge
-      good_skill = assignment.contributors.flat_map(&:skills).find { |cs| ps.name == cs.name && ps.level == cs.level }
-      good_skill.level += 1 if good_skill
+      team_skills = assignment.contributors.flat_map(&:skills)
 
-      # mentored
-      if good_skill
-        skill = assignment.contributors.flat_map(&:skills).find { |cs| ps.name == cs.name && ps.level == (cs.level + 1) }
-        skill.level += 1 if skill
-      end
+      exceed_skill = team_skills.any? { |cs| ps.name == cs.name && ps.level < cs.level }
+      good_skills = team_skills.select { |cs| ps.name == cs.name && ps.level == cs.level }
+      rookie_skills = team_skills.select { |cs| ps.name == cs.name && ps.level == (cs.level + 1) }
+
+      good_skills.each { |cs| cs.level += 1 }
+      rookie_skills.each { |cs| cs.level += 1 } if good_skills.any? || exceed_skill
     end
   end
 end
