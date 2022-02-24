@@ -14,7 +14,13 @@ class ParallelGreedyAlgorithm
     current_day = 0
     searching = true
     while searching
-      current_day += 1 if project_added.zero?
+      if project_added.zero?
+        min_wo_ti = contributors.min { |c| c.working_til }.working_til
+        current_day += 1
+        if current_day < min_wo_ti
+          current_day = min_wo_ti
+        end
+      end
       project_added = 0
 
       projects_sorted.find_all { |p| p.done == false }.each do |project|
