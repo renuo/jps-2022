@@ -15,11 +15,9 @@ class ParallelGreedyAlgorithm
     searching = true
     while searching
       if project_added.zero?
-        min_wo_ti = contributors.min { |c| c.working_til }.working_til
+        min_wo_ti = contributors.min(&:working_til).working_til
         current_day += 1
-        if current_day < min_wo_ti
-          current_day = min_wo_ti
-        end
+        current_day = min_wo_ti if current_day < min_wo_ti
       end
       project_added = 0
 
@@ -47,7 +45,7 @@ class ParallelGreedyAlgorithm
         end
       end
 
-      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > 10000
+      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > 10_000
     end
 
     context.project_assignments = manager.project_assignments
