@@ -9,9 +9,11 @@ class EasyAlgorithm
       assignment = ProjectAssignment.new(project: project, contributors: [])
 
       project.skills.each do |ps|
-        contributor = contributors.find { |c| c.skills.any? { |cs| cs.level >= (ps.level - 1) } }
-        assignment.contributors << contributor if contributor
-
+        contributor = contributors.find { |c| c.skills.any? { |cs| cs.name == ps.name && cs.level >= ps.level } }
+        if contributor
+          contributors.delete(contributor)
+          assignment.contributors << contributor
+        end
       end
 
       context.project_assignments << assignment
