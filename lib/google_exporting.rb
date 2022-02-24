@@ -4,7 +4,7 @@ module GoogleExporting
       file.puts result.project_manager.length
       puts result.project_manager
       result.project_manager.project_assignments.each do |assignment|
-        file.puts assignment.name
+        file.puts assignment.project.name
         file.puts assignment.contributors.map(&:name).join(" ")
       end
     end

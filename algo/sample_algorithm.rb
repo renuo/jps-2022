@@ -2,16 +2,13 @@ class SampleAlgorithm
   include Interactor
 
   def call
-    numbers = context.world&.numbers
+    b = Contributor.new(name: 'Bob')
+    a = Contributor.new(name: 'Anna')
+    p = Project.new(name: 'WebServer', duration_days: 7)
 
-    b = Person.new(name: 'Bob')
-    a = Person.new(name: 'Anna')
-    context.project_assignments = [ProjectAssignment.new(name: 'WebServer', people: [b, a])]
+    manager = ProjectManager.new
+    manager.add(ProjectAssignment.new(project: p, contributors: [b, a]))
 
-    if numbers
-      context.sum = numbers.reduce(&:+)
-    else
-      context.fail!(message: 'There are no numbers!')
-    end
+    context.project_manager = manager
   end
 end
