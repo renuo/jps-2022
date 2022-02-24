@@ -6,9 +6,6 @@ class SampleAlgorithm
     a = Contributor.new(name: 'Anna')
     p = Project.new(name: 'WebServer', duration_days: 7, score: 10)
 
-    manager = ProjectManager.new
-    manager.add(ProjectAssignment.new(project: p, contributors: [b, a]))
-
-    context.project_manager = manager
+    context.project_assignments = [ProjectAssignment.new(project: p, contributors: [b, a])]
   end
 end
