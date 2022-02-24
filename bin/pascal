@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/jps'
-require_relative '../algo/greedy_algorithm'
+require_relative '../algo/parallel_greedy_algorithm'
 
 GoogleImporting::DATASET_NAMES.each do |name|
   world = GoogleImporting.build_world(name)
 
-  result = GreedyAlgorithm.call(world: world)
+  result = ParallelGreedyAlgorithm.call(world: world)
 
   GoogleExporting.write_result(result, File.join(__dir__, "../data/out/pascal/#{name}.txt"))
 end

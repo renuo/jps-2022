@@ -12,5 +12,6 @@ ProjectManager = Struct.new(:project_assignments, :current_day, keyword_init: tr
       c.working_til = self.current_day
       c.used = false
     end
+    assignment.project.done = true
   end
 end

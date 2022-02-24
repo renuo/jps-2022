@@ -13,10 +13,11 @@ Contributor = Struct.new(:name, :skills, :working_til, :used, keyword_init: true
   end
 end
 
-Project = Struct.new(:name, :duration_days, :score, :skills, :day_score, keyword_init: true) do
+Project = Struct.new(:name, :duration_days, :score, :skills, :day_score, :day_score_users, :done, keyword_init: true) do
   def initialize(**args)
     super(**args)
     self.skills ||= []
+    self.done = false
   end
 
   def day_score
