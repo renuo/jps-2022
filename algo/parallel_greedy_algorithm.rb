@@ -8,6 +8,7 @@ class ParallelGreedyAlgorithm
     contributors = context.world&.contributors
 
     projects_sorted = projects.sort { |a, b| b[:day_score] <=> a[:day_score] }
+    contributors = contributors.sort { |a, b| b[:skills].flat_map(&:level) <=> a[:skills].flat_map(&:level)  }
 
     manager = ProjectManager.new
     project_added = 1000
@@ -16,7 +17,7 @@ class ParallelGreedyAlgorithm
     while searching
       if project_added.zero?
         min_wo_ti = contributors.min { |c| c.working_til }.working_til
-        current_day += 1
+        current_day += 10
         current_day = min_wo_ti if current_day < min_wo_ti
       end
       project_added = 0
@@ -27,8 +28,15 @@ class ParallelGreedyAlgorithm
         end
         c_list = []
         project.skills.each do |p_skill|
-          contributor = contributors.find_all { |c| c.used == false && current_day >= c.working_til }.find do |c|
+          mentor = c_list.find do |c|
             c.skills.any? { |c_skill| c_skill.level >= p_skill.level && c_skill.name == p_skill.name }
+          end
+          # puts mentor
+          predicate = mentor ? -1 : 0
+          # puts predicate
+
+          contributor = contributors.find_all { |c| c.used == false && current_day >= c.working_til }.find do |c|
+            c.skills.any? { |c_skill| c_skill.level >= p_skill.level + predicate && c_skill.name == p_skill.name }
           end
           if contributor
             c_list.append(contributor)
@@ -45,7 +53,7 @@ class ParallelGreedyAlgorithm
         end
       end
 
-      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > 10_000
+      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > 1000
     end
 
     context.project_assignments = manager.project_assignments
