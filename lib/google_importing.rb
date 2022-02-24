@@ -27,7 +27,7 @@ module GoogleImporting
     projects = []
     project_count.to_i.times do |p|
       project_name, duration_days, score, best_before, role_count = lines[i].split
-      project = Project.new(name: project_name, duration_days: duration_days, score: score)
+      project = Project.new(name: project_name, duration_days: duration_days.to_f, score: score.to_f)
       i += 1
 
       role_count.to_i.times do |rc|

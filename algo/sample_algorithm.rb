@@ -4,7 +4,7 @@ class SampleAlgorithm
   def call
     b = Contributor.new(name: 'Bob')
     a = Contributor.new(name: 'Anna')
-    p = Project.new(name: 'WebServer', duration_days: 7)
+    p = Project.new(name: 'WebServer', duration_days: 7, score: 10)
 
     manager = ProjectManager.new
     manager.add(ProjectAssignment.new(project: p, contributors: [b, a]))

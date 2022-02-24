@@ -11,10 +11,11 @@ Contributor = Struct.new(:name, :skills, keyword_init: true) do
   end
 end
 
-Project = Struct.new(:name, :duration_days, :score, :skills, keyword_init: true) do
+Project = Struct.new(:name, :duration_days, :score, :skills, :day_score, keyword_init: true) do
   def initialize(**args)
     super(**args)
     self.skills ||= []
+    self.day_score = self.score / self.duration_days
   end
 end
 
@@ -33,7 +34,6 @@ ProjectManager = Struct.new(:project_assignments, :current_day, keyword_init: tr
     self.current_day += assignment.project.duration_days
   end
 end
-
 
 World = Struct.new(:contributors, :projects, keyword_init: true) do
   def initialize(**args)
