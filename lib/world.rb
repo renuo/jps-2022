@@ -4,10 +4,12 @@ Skill = Struct.new(:name, :level, keyword_init: true) do
   end
 end
 
-Contributor = Struct.new(:name, :skills, keyword_init: true) do
+Contributor = Struct.new(:name, :skills, :working_til, :used, keyword_init: true) do
   def initialize(**args)
     super(**args)
     self.skills ||= []
+    self.working_til = 0
+    self.used = false
   end
 end
 
