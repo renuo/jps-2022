@@ -7,17 +7,19 @@ class ParallelGreedyAlgorithm
     projects = context.world&.projects
     contributors = context.world&.contributors
 
-    projects_sorted = projects.sort { |a, b| b[:day_score] <=> a[:day_score] }
-    contributors = contributors.sort { |a, b| b[:skills].flat_map(&:level) <=> a[:skills].flat_map(&:level)  }
+    projects_sorted = projects.sort { |a, b| b.cost_score <=> a.cost_score }
+    contributors = contributors.sort { |a, b| b[:skills].length <=> a[:skills].length }
 
     manager = ProjectManager.new
     project_added = 1000
     current_day = 0
     searching = true
+    total_linear_time = projects.flat_map(&:duration_days).sum
+    iterations = 1000
     while searching
       if project_added.zero?
         min_wo_ti = contributors.min { |c| c.working_til }.working_til
-        current_day += 10
+        current_day += total_linear_time / iterations
         current_day = min_wo_ti if current_day < min_wo_ti
       end
       project_added = 0
@@ -53,7 +55,7 @@ class ParallelGreedyAlgorithm
         end
       end
 
-      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > 1000
+      searching = false if projects_sorted.all? { |p| p.done == true } || current_day > total_linear_time
     end
 
     context.project_assignments = manager.project_assignments
