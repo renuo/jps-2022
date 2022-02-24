@@ -39,8 +39,9 @@ module GoogleImporting
       projects << project
     end
 
-    puts "at #{i} of #{lines.length}"
+    world = World.new(contributors: contributors, projects: projects)
+    puts "read #{world.contributors.length} contributors and #{world.projects.length} projects"
 
-    World.new(contributors: contributors, projects: projects)
+    world
   end
 end
