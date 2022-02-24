@@ -1,6 +1,8 @@
-# Street = Struct.new(:length, :name, :start, :end, :cars, keyword_init: true) do
-#   # TODO implement class methods
-# end
+Person = Struct.new(:name, keyword_init: true) do
+end
+
+ProjectAssignment = Struct.new(:name, :people, keyword_init: true) do
+end
 
 World = Struct.new(:numbers, keyword_init: true) do
   def initialize(args)
